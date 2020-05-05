@@ -380,7 +380,9 @@ class Random_Player:
 def AI_runner(state=state, depth=2):
     board = state['game']
     nmove = len(state['moves'])
-
+    if nmove>29:
+        depth+=1
+    
     table = TT()
     ai_algo = Negamax(depth, tt=table)
 
@@ -429,8 +431,7 @@ def human_vs_ai(depth=2, human_color=1):
 
 if __name__ == '__main__':  
     t = time.time()
-    print(AI_runner())
-    #random_vs_ai(random_color=0)
+    random_vs_ai(random_color=0)
     print(time.time()-t)
 
     
