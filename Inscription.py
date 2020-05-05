@@ -6,7 +6,7 @@ s = socket.socket()
 s.connect((socket.gethostname(), port))
 
 matricules = ["18040", "17051"]
-name = "La Vulcania est toujours la"
+name = "Vulcania est toujours la"
 
 msg = {"matricules": matricules,
        "port": port,
@@ -15,4 +15,8 @@ msg = {"matricules": matricules,
 msg = json.dumps(msg)
 msg = bytes(msg, "utf-8")
 
-s.send(msg)
+tot = 0
+while tot < len(msg):
+       sent = s.send(msg[tot:])
+       tot += sent
+#s.send(msg)
