@@ -4,7 +4,7 @@ import json
 s = socket.socket()
 s.connect((socket.gethostname(), 3001))
 
-matricules = ["18040", "17000"]
+matricules = ["18040", "17051"]
 port = 3001
 name = "La Vulcania est toujours la"
 
