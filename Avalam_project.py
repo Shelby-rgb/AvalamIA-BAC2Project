@@ -92,6 +92,8 @@ class Avalam(TwoPlayersGame):
             self.nplayer = 2
         else:
             self.nplayer = 1
+        self.step = time.time()
+        self.max_time = 0
     
     #return une liste des cases ou se trouve une tour
     def _listing(self, state):
@@ -306,6 +308,16 @@ class Avalam(TwoPlayersGame):
             else:
                 print('   +-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --')
             y += 1
+        self.check_time()
+
+    #regarde le temps entre chaque coups
+    def check_time(self):
+        t = time.time()
+        duration = t-self.step
+        if duration > self.max_time:
+            self.max_time = duration
+        print(f'Joueur {self.nplayer-1} a répondu en {duration} secondes')
+        self.step = t
 
     #permet d'utiliser les tables de transposition, accélère l'ia
     def ttentry(self):
@@ -417,6 +429,7 @@ def random_vs_ai(depth=2, random_color=1):
         players = [Random_Player(color=0), AI_Player(ai_algo, color=1)]
     game = Avalam(players, board, first_color=0)
     game.play()
+    print(f'Temps max entre 2 coups: {game.max_time} secondes')
 
 def human_vs_ai(depth=2, human_color=1):
     board = state['game']
@@ -432,7 +445,8 @@ def human_vs_ai(depth=2, human_color=1):
 if __name__ == '__main__':  
     t = time.time()
     random_vs_ai(random_color=0)
-    print(time.time()-t)
+    print(f'La partie a duré {time.time()-t} secondes')
+    
 
     
 
