@@ -6,7 +6,7 @@ s.connect((socket.gethostname(), 3001))
 
 matricules = ["18040", "17000"]
 port = 3001
-name = "La vulcania est toujours la"
+name = "La Vulcania est toujours la"
 
 msg = {"matricules": matricules,
        "port": port,
