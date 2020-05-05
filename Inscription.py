@@ -1,11 +1,11 @@
 import socket
 import json
 
+port = 3001
 s = socket.socket()
-s.connect((socket.gethostname(), 3001))
+s.connect((socket.gethostname(), port))
 
 matricules = ["18040", "17051"]
-port = 3001
 name = "La Vulcania est toujours la"
 
 msg = {"matricules": matricules,
