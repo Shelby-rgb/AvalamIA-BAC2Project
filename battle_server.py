@@ -1,6 +1,6 @@
 import cherrypy
 import sys
-from AI_runner_version import AI_runner
+from Avalam_project import AI_runner
 
 class Server:
     @cherrypy.expose
