@@ -3,7 +3,7 @@ Project Avalam
 Règles du jeu:
 http://www.oya.fr/?post/2014/12/09/73-avalam-est-a-oya
 
-Avant d'utiliser le code, installer le framework easyAI, voir:
+L'IA est basée sur le framework easyAI, voir:
 https://github.com/Zulko/easyAI/blob/master/README.rst
 
 L'IA utilise Negamax, une variante de Minimax avec élagage 'alpha/beta'.
