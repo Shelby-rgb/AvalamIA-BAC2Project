@@ -9,7 +9,7 @@ https://github.com/Zulko/easyAI/blob/master/README.rst
 L'IA utilise Negamax, une variante de l'algorithme Minimax avec élagage 'alpha/beta' afin d'optimiser la recherche.
 https://en.wikipedia.org/wiki/Negamax
 
-Pour évaluer l'état du jeu, Negamax utilise La fonction Avalam.scoring(). Celle ci calcule dans un premier temps le nombre de tours que possède chaque équipe (le score direct). Ensuite, elle cherche si cette tour pourrait encore se déplacer ou être prise par l'adversaire. Si non, c'est qu'elle est 'figée'. Elle ne bougera plus de la partie, donc le point qu'elle rapporte peut être considéré comme acquis. Ces tours valorisent le score du joueur qui la possède.
+Pour évaluer l'état du jeu, Negamax utilise La fonction Avalam.scoring(). Celle ci calcule dans un premier temps le nombre de tours que possède chaque équipe (le score direct). Ensuite, elle cherche si cette tour pourrait encore se déplacer ou être prise par l'adversaire. Si non, c'est qu'elle est 'figée'. Elle ne bougera plus de la partie, donc le point qu'elle rapporte peut être considéré comme acquis. Ces tours valorisent le score du joueur qui la possède. Cette façon d'évaluer le score vise à compenser le fait que Negamax ne calculcera que 2 coups à l'avance (3 en fin de partie).Si on tente de lui en demander plus, il mettra trop longtemps à trouver une solution.
 
 Pour jouer contre l'ia dans le terminal, appeler la fonction human_vs_ai(human_color=1).
 Pour voir jouer l'ia contre random, appeler la fonction random_vs_ai(random_color=1).
