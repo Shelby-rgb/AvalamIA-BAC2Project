@@ -16,7 +16,8 @@ class Server:
         
         body = cherrypy.request.json
         print(body)
-        return AI_runner(state=body, depth=2)
+        rep_move = AI_runner(state=body, depth=2)
+        return rep_move
 
     @cherrypy.expose
     def ping(self):
@@ -26,7 +27,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         port=int(sys.argv[1])
     else:
-        port=8081
+        port=3030
 
     cherrypy.config.update({'server.socket_host': '0.0.0.0', 'server.socket_port': port})
     cherrypy.quickstart(Server())
