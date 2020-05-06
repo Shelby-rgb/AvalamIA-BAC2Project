@@ -6,7 +6,7 @@ http://www.oya.fr/?post/2014/12/09/73-avalam-est-a-oya
 L'IA est basée sur le framework easyAI, voir:
 https://github.com/Zulko/easyAI/blob/master/README.rst
 
-L'IA utilise Negamax, une variante de Minimax avec élagage 'alpha/beta'.
+L'IA utilise Negamax, une variante de l'algorithme Minimax avec élagage 'alpha/beta' afin d'optimiser la recherche.
 https://en.wikipedia.org/wiki/Negamax
 
 Pour évaluer l'état du jeu, Negamax utilise La fonction Avalam.scoring(). Celle ci calcule dans un premier temps le nombre de tours que possède chaque équipe (le score direct). Ensuite, elle cherche si cette tour pourrait encore se déplacer ou être prise par l'adversaire. Si non, c'est qu'elle est 'figée'. Elle ne bougera plus de la partie, donc le point qu'elle rapporte peut être considéré comme acquis. Ces tours valorisent le score du joueur qui la possède.
