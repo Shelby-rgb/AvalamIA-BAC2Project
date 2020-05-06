@@ -416,7 +416,7 @@ def AI_runner(state=state, depth=2):
             "from": move[0],
             "to": move[1]
         },
-        "message": "I'm Smart"
+        "message": "La Vulcania est toujours là"
     }
     dic_move_form = json.dumps(dic_move_form)
     return dic_move_form
