@@ -1,11 +1,11 @@
 import copy
 from copy import deepcopy
 import time
-from easyAI import Negamax, TwoPlayersGame, TT
-import re
 import random
 import json
 
+from easyAI import Negamax, TwoPlayersGame, TT
+from X_Player_class import AI_Player, Human_Player, Random_Player
 
 state = {
 	"game": [
@@ -19,20 +19,10 @@ state = {
 		[ [], [1], [0], [1], [0], [1],  [],  [],  []],
 		[ [],  [],  [],  [], [1], [0],  [],  [],  []]
 	],
-	"moves": [
-        { 
-        "move": {
-            "from": [0, 4], 
-            "to": [0, 3]
-        }, 
-        "message": "I'm Smart"
-        }
-        ],
+	"moves": [],
 	"players": ["LUR", "LRG"],
 	"you": "LUR"
 }
-
-
 
 """
 Comment jouer? 
@@ -78,11 +68,15 @@ Comment jouer?
         - 'quit' pour interrompre le jeu
 """
 
-
-
-
+"""
+La classe Avalam permet essentiellement:
+    - De lister tous les coups authorisés en fonction du plateau de jeu (possible_moves())
+    - De modifier le plateau en fonction du mouvement demandé (make_move())
+    - D'évaluer quel joueur à l'avantage (scoring())
+    - De vérifier si le jeu est terminé (is_over())
+    Les autres fonctions ne sont pas essentielles à un fonctionnement correct de Negamax
+"""
 class Avalam(TwoPlayersGame):
-
 
     def __init__(self, players, state=state['game'], first_color=0, nmove=0):
         self.nmove = nmove
@@ -324,70 +318,30 @@ class Avalam(TwoPlayersGame):
     def ttentry(self):
         return str(self.state)
 
-class AI_Player:       
-    def __init__(self, AI_algo, name = 'AI', color=0):
-        self.AI_algo = AI_algo
-        self.name = name
-        self.move = {}
-        self.color = color
+#joue toute une partie random vs ia, plateau dans le terminal
+def random_vs_ai(depth=2, random_color=1):
+    board = state['game']
+    table = TT()
+    ai_algo = Negamax(depth, tt=table)
+    if random_color == 1:
+        players = [AI_Player(ai_algo, color=0), Random_Player(color=1)]
+    else:
+        players = [Random_Player(color=0), AI_Player(ai_algo, color=1)]
+    game = Avalam(players, board, first_color=0)
+    game.play()
+    print(f'Temps max entre 2 coups: {game.max_time} secondes')
 
-    def ask_move(self, game):
-        return self.AI_algo(game)
-
-class Human_Player:
-    def __init__(self, name = 'Human', color=0):
-        self.name = name
-        self.color = color
-
-    def regex_move(self, move):
-        str_list = list(move)
-        int_list = []
-        for number in str_list:
-            if number != ' ':
-                int_list.append(int(number))
-        return [[int_list[0], int_list[1]], [int_list[2], int_list[3]]]
-
-    def ask_move(self, game):
-        possible_moves = game.possible_moves()
-        # The str version of every move for comparison with the user input:
-        possible_moves_str = list(map(str, game.possible_moves()))
-        move = "NO_MOVE_DECIDED_YET"
-        while True:
-            move = input("\nPlayer %s what do you play ? "%(game.nplayer))
-            if move == 'show moves':
-                print ("Possible moves:\n"+ "\n".join(
-                       ["#%d: %s"%(i+1,m) for i,m in enumerate(possible_moves)])
-                       +"\nType a move or type 'move #move_number' to play.")
-
-            elif move == 'quit':
-                raise KeyboardInterrupt
-
-            elif move.startswith("move #"):
-                # Fetch the corresponding move and return.
-                move = possible_moves[int(move[6:])-1]
-                return move
-
-            elif str(move) in possible_moves_str:
-                # Transform the move into its real type (integer, etc. and return).
-                move = possible_moves[possible_moves_str.index(str(move))]
-                return move
-
-            else:
-                pattern = r" *[0-9] *[0-9] *[0-9] *[0-9] *"
-
-                mvt = re.compile(pattern)
-                if mvt.match(move) is not None:
-                    return self.regex_move(move)
-
-class Random_Player:
-    def __init__(self, name='Random', color=0):
-        self.name = name
-        self.state = state
-        self.color = color
-
-    def ask_move(self, game):
-        pm = game.possible_moves()
-        return random.choice(pm)
+#permet de jouer soi même contre l'ia dans le terminal
+def human_vs_ai(depth=2, human_color=1):
+    board = state['game']
+    table = TT()
+    ai_algo = Negamax(depth, tt=table)
+    if human_color == 1:
+        players = [AI_Player(ai_algo, color=0), Human_Player(color=1)]
+    else:
+        players = [Human_Player(color=0), AI_Player(ai_algo, color=1)]
+    game = Avalam(players, board, first_color=0)
+    game.play()
 
 #Renvoie le meilleur coup d'après Negamax, au format json
 def AI_runner(state=state, depth=2):
@@ -438,28 +392,6 @@ def AI_runner(state=state, depth=2):
     dic_move_form = json.dumps(dic_move_form)
     return dic_move_form
 
-def random_vs_ai(depth=2, random_color=1):
-    board = state['game']
-    table = TT()
-    ai_algo = Negamax(depth, tt=table)
-    if random_color == 1:
-        players = [AI_Player(ai_algo, color=0), Random_Player(color=1)]
-    else:
-        players = [Random_Player(color=0), AI_Player(ai_algo, color=1)]
-    game = Avalam(players, board, first_color=0)
-    game.play()
-    print(f'Temps max entre 2 coups: {game.max_time} secondes')
-
-def human_vs_ai(depth=2, human_color=1):
-    board = state['game']
-    table = TT()
-    ai_algo = Negamax(depth, tt=table)
-    if human_color == 1:
-        players = [AI_Player(ai_algo, color=0), Human_Player(color=1)]
-    else:
-        players = [Human_Player(color=0), AI_Player(ai_algo, color=1)]
-    game = Avalam(players, board, first_color=0)
-    game.play()
 
 if __name__ == '__main__':  
     t = time.time()
