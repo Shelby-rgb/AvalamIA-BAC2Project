@@ -315,11 +315,6 @@ class Avalam(TwoPlayersGame):
             self.max_time = duration
         print(f'Joueur {self.nplayer-1} a répondu en {duration} secondes')
         self.step = t
-    
-    def make_random_choice(self):
-        pm = self.possible_moves()
-        rand_move = random.choice(pm)
-        return rand_move
 
     #permet d'utiliser les tables de transposition, accélère l'ia
     def ttentry(self):
@@ -410,15 +405,27 @@ def AI_runner(state=state, depth=2):
     
     return dic_move_form
 
+def Random_runner(state=state, depth=2):
+    board = state['game']
+    players = [Random_Player(color=0), Random_Player(color=1)]
+
+    game = Avalam(players, board)
+    move = game.get_move()
+
+    dic_move_form = {
+        "move": {
+            "from": move[0],
+            "to": move[1]
+        },
+        "message": "Ave, Caesar, morituri te salutant"
+    }
+
+    return dic_move_form
 
 if __name__ == '__main__':  
     t = time.time()
-    #print(AI_runner())
     human_vs_ai(depth= 2, human_color=0)
     print(f"L'exécution a duré {time.time()-t} secondes")
-    
-   
-    
 
 
 #C'est la vie de chateau?
