@@ -24,6 +24,10 @@ state = {
 	"you": "LUR"
 }
 
+
+msg_list = ["Ave, Caesar, morituri te salutant", "La Vulcania est toujours la", "Tu peux envoyer ce message 1 fois mais pas 15", "Tu peux envoyer ce message 2 fois mais pas 15", "Tu peux envoyer ce message 3 fois mais pas 15", "Tu peux envoyer ce message 4 fois mais pas 15", "Tu peux envoyer ce message 5 fois mais pas 15", "Tu peux envoyer ce message 6 fois mais pas 15", "Tu peux envoyer ce message 7 fois mais pas 15", "Tu peux envoyer ce message 8 fois mais pas 15", "Tu peux envoyer ce message 9 fois mais pas 15", "Tu peux envoyer ce message 10 fois mais pas 15", "Tu peux envoyer ce message 11 fois mais pas 15", "Tu peux envoyer ce message 12 fois mais pas 15", "Tu peux envoyer ce message 13 fois mais pas 15", "Tu peux envoyer ce message 14 fois mais pas 15", "Tu peux envoyer ce message 15 fois mais pas ... ah, bah si tu peux!"]
+
+
 """
 Comment jouer? 
     Pour initialiser Avalam, utiliser les paramètres suivants:
@@ -107,8 +111,8 @@ class Avalam(TwoPlayersGame):
                                 return True 
             return False
         #return une liste des cases ou se trouve une tour
-        def _listing(state):
-            board = state
+        def _listing(board):#state):
+            #board = state
             position_list = []
             for line in board:
                 for tower in line:
@@ -351,11 +355,17 @@ def AI_runner(state=state, depth=2):
     board = state['game']
     nmove = len(state['moves'])
 
+    if nmove > 25:
+        depth += 1
+    if nmove > 30:
+        depth += 1
+    """
     #l'ia est plus lente entre les coups 12 et 25
     if 12<nmove<25:
         depth = 1
     if 33<nmove:
         depth = 3
+        """
 
     #si des coups ont déjà été joués, on devrait avoir enregistré les tables au tour précédent
     if nmove != 0 and nmove != 1:
@@ -380,19 +390,24 @@ def AI_runner(state=state, depth=2):
 
     game = Avalam(players, board, first_color=your_color, nmove=nmove)
     move = game.get_move()
-
+    msg_index = nmove //2
+    while msg_index > 16:
+        msg_index -= 16
     dic_move_form = {
         "move": {
             "from": move[0],
             "to": move[1]
         },
-        "message": "La Vulcania est toujours la"
+        "message": msg_list[msg_index]
     }
+
+    
+    
     #enregistre la TT, sera utilisée uniquement pour la partie en cours
     with open('saved_TT.txt', 'w') as f:
         json.dump(table.d, f)
 
-    dic_move_form = json.dumps(dic_move_form)
+    
     return dic_move_form
 
 
@@ -402,7 +417,7 @@ if __name__ == '__main__':
     human_vs_ai(depth= 2, human_color=0)
     print(f"L'exécution a duré {time.time()-t} secondes")
     
-
+   
     
 
 

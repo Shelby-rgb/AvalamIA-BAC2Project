@@ -17,6 +17,7 @@ class Server:
         body = cherrypy.request.json
         print(body)
         rep_move = AI_runner(state=body, depth=2)
+        print(rep_move)
         return rep_move
 
     @cherrypy.expose

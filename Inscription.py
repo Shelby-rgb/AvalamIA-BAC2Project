@@ -6,7 +6,7 @@ s = socket.socket()
 s.connect((socket.gethostname(), port))
 
 matricules = ["18040", "17051"]
-name = "Serveur 1"
+name = "Vulcania"
 
 msg = {"matricules": matricules,
        "port": 3030,
