@@ -400,7 +400,7 @@ if __name__ == '__main__':
     t = time.time()
     #print(AI_runner())
     human_vs_ai(depth= 2, human_color=0)
-    print(f'La partie a duré {time.time()-t} secondes')
+    print(f"L'exécution a duré {time.time()-t} secondes")
     
 
     
