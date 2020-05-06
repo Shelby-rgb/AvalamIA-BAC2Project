@@ -89,19 +89,6 @@ class Avalam(TwoPlayersGame):
             self.nplayer = 1
         self.step = time.time()
         self.max_time = 0
-    
-    #return une liste des cases ou se trouve une tour
-    def _listing(self, state):
-        board = state
-        position_list = []
-        for line in board:
-            for tower in line:
-                if len(tower) > 0:
-                    a = board.index(line)
-                    b = line.index(tower)
-                    pos = [a, b]
-                    position_list.append(pos)
-        return position_list
 
     #return liste de tous les mouvements possibles
     def possible_moves(self):
@@ -119,8 +106,19 @@ class Avalam(TwoPlayersGame):
                             if a[1]==b[1]-1 or a[1]==b[1] or a[1]==b[1]+1:                                                         
                                 return True 
             return False
-
-        position_list = self._listing(state)
+        #return une liste des cases ou se trouve une tour
+        def _listing(state):
+            board = state
+            position_list = []
+            for line in board:
+                for tower in line:
+                    if len(tower) > 0:
+                        a = board.index(line)
+                        b = line.index(tower)
+                        pos = [a, b]
+                        position_list.append(pos)
+            return position_list
+        position_list = _listing(state)
         possible_moves = []
         for elem in position_list:             
             u = elem[0]
@@ -313,6 +311,11 @@ class Avalam(TwoPlayersGame):
             self.max_time = duration
         print(f'Joueur {self.nplayer-1} a répondu en {duration} secondes')
         self.step = t
+    
+    def make_random_choice(self):
+        pm = self.possible_moves()
+        rand_move = random.choice(pm)
+        return rand_move
 
     #permet d'utiliser les tables de transposition, accélère l'ia
     def ttentry(self):
@@ -374,10 +377,10 @@ def AI_runner(state=state, depth=2):
         your_color = 1
         opponent_color = 0
         players = [Human_Player(color=opponent_color), AI_Player(ai_algo, color=your_color)]
-    
-    
+
     game = Avalam(players, board, first_color=your_color, nmove=nmove)
     move = game.get_move()
+
     dic_move_form = {
         "move": {
             "from": move[0],
