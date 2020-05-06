@@ -463,8 +463,8 @@ def human_vs_ai(depth=2, human_color=1):
 
 if __name__ == '__main__':  
     t = time.time()
-    print(AI_runner())
-    # random_vs_ai(depth= 3, random_color=0)
+    #print(AI_runner())
+    random_vs_ai(depth= 2, random_color=0)
     print(f'La partie a duré {time.time()-t} secondes')
     
 
