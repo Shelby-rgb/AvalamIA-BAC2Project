@@ -150,4 +150,3 @@ class TwoPlayersGame:
         result = self.make_move(move)
         self.switch_player()        
         return result
-

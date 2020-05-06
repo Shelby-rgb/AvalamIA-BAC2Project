@@ -6,10 +6,10 @@ s = socket.socket()
 s.connect((socket.gethostname(), port))
 
 matricules = ["18040", "17051"]
-name = "Vulcania est toujours la"
+name = "Serveur 1"
 
 msg = {"matricules": matricules,
-       "port": port,
+       "port": 3030,
        "name": name}
 
 def sendJSON(socket, data):
