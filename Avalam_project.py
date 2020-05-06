@@ -394,17 +394,19 @@ def AI_runner(state=state, depth=2):
     board = state['game']
     nmove = len(state['moves'])
 
+    #l'ia est plus lente entre les coups 12 et 25
     if 12<nmove<25:
         depth = 1
     if 33<nmove:
         depth = 3
 
-    #récupérer une table si meme partie qu'avant?
+    #si des coups ont déjà été joués, on devrait avoir enregistré les tables au tour précédent
     if nmove != 0 and nmove != 1:
         with open('saved_TT.txt') as f:
             tab = f.read()
             tt = json.loads(tab)
         table = TT(own_dict=tt) 
+    #si c'est une nouvelle partie on crée une nouvelle table
     else:
         table = TT()
 
@@ -427,10 +429,12 @@ def AI_runner(state=state, depth=2):
             "from": move[0],
             "to": move[1]
         },
-        "message": "La Vulcania est toujours là"
+        "message": "La Vulcania est toujours la"
     }
-        with open('saved_TT.txt', 'w') as f:
-            json.dump(table.d, f)
+    #enregistre la TT, sera utilisée uniquement pour la partie en cours
+    with open('saved_TT.txt', 'w') as f:
+        json.dump(table.d, f)
+
     dic_move_form = json.dumps(dic_move_form)
     return dic_move_form
 
