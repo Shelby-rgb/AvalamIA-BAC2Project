@@ -20,3 +20,5 @@ while tot < len(msg):
        sent = s.send(msg[tot:])
        tot += sent
 #s.send(msg)
+rep = s.recv(1024)
+print(rep)
