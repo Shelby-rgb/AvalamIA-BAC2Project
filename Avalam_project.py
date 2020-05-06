@@ -393,10 +393,21 @@ class Random_Player:
 def AI_runner(state=state, depth=2):
     board = state['game']
     nmove = len(state['moves'])
-    if nmove>29:
-        depth+=1
-    
-    table = TT()
+
+    if 12<nmove<25:
+        depth = 1
+    if 33<nmove:
+        depth = 3
+
+    #récupérer une table si meme partie qu'avant?
+    if nmove != 0 and nmove != 1:
+        with open('saved_TT.txt') as f:
+            tab = f.read()
+            tt = json.loads(tab)
+        table = TT(own_dict=tt) 
+    else:
+        table = TT()
+
     ai_algo = Negamax(depth, tt=table)
 
     if state['you'] == state['players'][0]:
@@ -418,6 +429,8 @@ def AI_runner(state=state, depth=2):
         },
         "message": "La Vulcania est toujours là"
     }
+        with open('saved_TT.txt', 'w') as f:
+            json.dump(table.d, f)
     dic_move_form = json.dumps(dic_move_form)
     return dic_move_form
 
@@ -446,7 +459,8 @@ def human_vs_ai(depth=2, human_color=1):
 
 if __name__ == '__main__':  
     t = time.time()
-    random_vs_ai(depth= 2, random_color=0)
+    print(AI_runner())
+    # random_vs_ai(depth= 3, random_color=0)
     print(f'La partie a duré {time.time()-t} secondes')
     
 
