@@ -4,6 +4,7 @@ import time
 from easyAI import Negamax, TwoPlayersGame, TT
 import re
 import random
+import json
 
 
 state = {
@@ -388,7 +389,7 @@ class Random_Player:
         pm = game.possible_moves()
         return random.choice(pm)
 
-#Renvoie le meilleur coup d'après Negamax
+#Renvoie le meilleur coup d'après Negamax, au format json
 def AI_runner(state=state, depth=2):
     board = state['game']
     nmove = len(state['moves'])
@@ -417,6 +418,7 @@ def AI_runner(state=state, depth=2):
         },
         "message": "I'm Smart"
     }
+    dic_move_form = json.dumps(dic_move_form)
     return dic_move_form
 
 def random_vs_ai(depth=2, random_color=1):
