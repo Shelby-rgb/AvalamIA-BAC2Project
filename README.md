@@ -23,8 +23,7 @@ De plus, Negamax attribue plus de valeur à un même état de jeu s'il est attei
 Pour jouer contre l'ia dans le terminal, appeler la fonction human_vs_ai(human_color=1).
 Pour voir jouer l'ia contre random, appeler la fonction random_vs_ai(random_color=1).
 
-Pour obtenir de l'ia un seul coup sans jouer toute la partie, appeler la fonction AI_runner(state=body). (body == état du jeu reçu part le serveur).
-
+Pour obtenir de l'ia un seul coup sans jouer toute la partie, appeler la fonction AI_runner(state=body). (body étant l'état du jeu reçu part le serveur).
 
 
 Lorsqu'on joue human_vs_ai():
