@@ -19,6 +19,7 @@ Ensuite, elle cherche si cette tour pourrait encore se déplacer ou être prise 
 Un temps limite (break_time) a été ajouté a Negamax pour limiter le temps de réflexion à (un peu) moins de 10 secondes.  
 De plus, Negamax attribue plus de valeur à un même état de jeu s'il est atteint plus rapidement (par exemple atteindre un score de 7 en 3 coups vaut mieux qu'en 5 coups).
 
+
 Pour jouer contre l'ia dans le terminal, appeler la fonction human_vs_ai(human_color=1).
 Pour voir jouer l'ia contre random, appeler la fonction random_vs_ai(random_color=1).
 
