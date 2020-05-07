@@ -19,11 +19,15 @@ L'élagage alpha/beta fait gagner du temps à l'algorithme en l'empêchant d'exp
 De plus, Negamax attribue plus de valeur à un même état de jeu s'il est atteint plus rapidement (par exemple atteindre un score de 7 en 3 coups vaut mieux qu'en 5 coups).
 Un temps limite (break_time) a été ajouté à Negamax pour limiter le temps de réflexion à (un peu) moins de 10 secondes.  
 
+
+inscription: inscription.py
+serveur ia: battle_server.py
+
+
 Pour jouer contre l'ia dans le terminal, appeler la fonction human_vs_ai(human_color=1).
 Pour voir jouer l'ia contre random, appeler la fonction random_vs_ai(random_color=1).
 
 Pour obtenir de l'ia un seul coup sans jouer toute la partie, appeler la fonction AI_runner(state=body). (body étant l'état du jeu reçu part le serveur).
-
 
 Lorsqu'on joue human_vs_ai():
 'Player 1' a les pions '0' et 'Player 2' a les pions '1'    
