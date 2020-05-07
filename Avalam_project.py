@@ -366,10 +366,9 @@ def AI_runner(state=state, depth=1):
     board = state['game']
     nmove = len(state['moves'])
     
-    if 9 <= nmove < 22:
-        depth = 1
+  
     if nmove > 30:
-        depth = 3
+        depth += 1
 
     #si des coups ont déjà été joués, on devrait avoir enregistré les tables au tour précédent
     if nmove != 0 and nmove != 1:
