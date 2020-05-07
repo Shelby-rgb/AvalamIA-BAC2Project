@@ -194,34 +194,50 @@ class Avalam(TwoPlayersGame):
                         if line != 0 and row != 0:
                             if len(state[line][row])+len(state[line-1][row-1]) >=5:
                                 fridge += 1
+                        else:
+                            fridge += 1
                             
                         if line != 0:
                             if len(state[line][row])+len(state[line-1][row]) >=5:
                                 fridge += 1
+                        else:
+                            fridge += 1
                         
                         if line != 0 and row != 8:
                             if len(state[line][row])+len(state[line-1][row+1]) >=5:
                                 fridge += 1
+                        else:
+                            fridge += 1
                             
                         if row != 0:
                             if len(state[line][row])+len(state[line][row-1]) >=5:
                                 fridge += 1
+                        else:
+                            fridge += 1
                         
                         if row != 8:
                             if len(state[line][row])+len(state[line][row+1]) >=5:
                                 fridge += 1
+                        else:
+                            fridge += 1
                         
                         if line != 8 and row != 0:
                             if len(state[line][row])+len(state[line+1][row-1]) >=5:
                                 fridge += 1
+                        else:
+                            fridge += 1
                             
                         if line != 8:
                             if len(state[line][row])+len(state[line+1][row]) >=5:
                                 fridge += 1
+                        else:
+                            fridge += 1
                             
                         if line != 8 and row != 8:
                             if len(state[line][row])+len(state[line+1][row+1]) >=5:
                                 fridge += 1
+                        else:
+                            fridge += 1
                     
                     if fridge == 8:
                         if state[line][row][-1] == current_player:
@@ -232,7 +248,6 @@ class Avalam(TwoPlayersGame):
                     row+=1
                 line+=1
             return player_fridge, opponent_fridge
-
         fridged = is_fridged(current_player, state)
         player_score += fridged[0]
         opponent_score += fridged[1]
