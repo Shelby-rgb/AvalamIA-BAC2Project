@@ -225,9 +225,9 @@ class Avalam(TwoPlayersGame):
                     
                     if fridge == 8:
                         if state[line][row][-1] == current_player:
-                            player_fridge += 0.42
+                            player_fridge += 0.9
                         else:
-                            opponent_fridge += 0.42
+                            opponent_fridge += 0.9
                    
                     row+=1
                 line+=1
@@ -362,14 +362,14 @@ def human_vs_ai(depth=2, human_color=1):
     game.play()
 
 #Renvoie le meilleur coup d'après Negamax, au format json
-def AI_runner(state=state, depth=2):
+def AI_runner(state=state, depth=1):
     board = state['game']
     nmove = len(state['moves'])
-
-    if nmove > 25:
-        depth += 1
+    
+    if 9 <= nmove < 22:
+        depth = 1
     if nmove > 30:
-        depth += 1
+        depth = 3
 
     #si des coups ont déjà été joués, on devrait avoir enregistré les tables au tour précédent
     if nmove != 0 and nmove != 1:

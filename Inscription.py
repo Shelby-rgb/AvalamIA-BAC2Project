@@ -34,4 +34,4 @@ def recvJSON(socket):
 sendJSON(s, msg)
 print(recvJSON(s))
 
-time.sleep(30)
+time.sleep(3)
