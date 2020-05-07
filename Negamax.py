@@ -2,14 +2,14 @@
 The standard AI algorithm of easyAI is Negamax with alpha-beta pruning
 and (optionnally), transposition tables.
 """
-
+import time
 import pickle
         
 LOWERBOUND, EXACT, UPPERBOUND = -1,0,1
 inf = float('infinity')
 
 def negamax(game, depth, origDepth, scoring, alpha=+inf, beta=-inf,
-             tt=None):
+             tt=None, step=time.time(), break_time=30):
     """
     This implements Negamax with transposition tables.
     This method is not meant to be used directly. See ``easyAI.Negamax``
@@ -74,7 +74,8 @@ def negamax(game, depth, origDepth, scoring, alpha=+inf, beta=-inf,
     
     
     for move in possible_moves:
-        
+        if time.time() - step > break_time:
+            break
         if not unmake_move:
             game = state.copy() # re-initialize move
         
@@ -82,7 +83,7 @@ def negamax(game, depth, origDepth, scoring, alpha=+inf, beta=-inf,
         game.switch_player()
         
         move_alpha = - negamax(game, depth-1, origDepth, scoring,
-                               -beta, -alpha, tt)
+                               -beta, -alpha, tt, step, break_time)
         
         if unmake_move:
             game.switch_player()
@@ -162,11 +163,12 @@ class Negamax:
     """
     
     
-    def __init__(self, depth, scoring=None, win_score=+inf, tt=None):
+    def __init__(self, depth, scoring=None, win_score=+inf, tt=None, break_time=30):
         self.scoring = scoring        
         self.depth = depth
         self.tt = tt
         self.win_score= win_score
+        self.break_time = break_time
     
     
     
@@ -179,5 +181,5 @@ class Negamax:
                        lambda g: g.scoring() ) # horrible hack
                        
         self.alpha = negamax(game, self.depth, self.depth, scoring,
-                     -self.win_score, +self.win_score, self.tt)
+                     -self.win_score, +self.win_score, self.tt, step=time.time(), break_time=self.break_time)
         return game.ai_move

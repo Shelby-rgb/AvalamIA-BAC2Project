@@ -4,7 +4,9 @@ import time
 import random
 import json
 
-from easyAI import Negamax, TwoPlayersGame, TT
+from Negamax import Negamax
+from TwoPlayersGame import TwoPlayersGame
+from TT import TT
 from X_Player_class import AI_Player, Human_Player, Random_Player
 
 state = {
@@ -258,7 +260,6 @@ class Avalam(TwoPlayersGame):
     #return True si le jeu est terminé
     def is_over(self):
         if len(self.possible_moves()) == 0:
-            print(self.scoring())
             return True
         else:
             return False 
@@ -364,12 +365,10 @@ def human_vs_ai(depth=2, human_color=1):
     game.play()
 
 #Renvoie le meilleur coup d'après Negamax, au format json
-def AI_runner(state=state, depth=1):
+def AI_runner(state=state, depth=5, break_time=9.42):
     board = state['game']
     nmove = len(state['moves'])
     
-    if nmove > 30:
-        depth += 1
     #si des coups ont déjà été joués, on devrait avoir enregistré les tables au tour précédent
     if nmove != 0 and nmove != 1:
         with open('saved_TT.txt') as f:
@@ -380,7 +379,7 @@ def AI_runner(state=state, depth=1):
     else:
         table = TT()
 
-    ai_algo = Negamax(depth, tt=table)
+    ai_algo = Negamax(depth, tt=table, break_time=break_time)
 
     if state['you'] == state['players'][0]:
         your_color = 0
@@ -415,19 +414,13 @@ def Random_runner(state=state, depth=2):
     game = Avalam(players, board)
     move = game.get_move()
 
-    dic_move_form = {
-        "move": {
-            "from": move[0],
-            "to": move[1]
-        },
-        "message": "Ave, Caesar, morituri te salutant"
-    }
+    dic_move_form = {"move": {"from": move[0], "to": move[1]}, "message": "Ave, Caesar, morituri te salutant"}
 
     return dic_move_form
 
 if __name__ == '__main__':  
     t = time.time()
-    random_vs_ai(depth= 2, random_color=0)
+    random_vs_ai(depth= 4, random_color=0)
     print(f"L'exécution a duré {time.time()-t} secondes")
 
 
