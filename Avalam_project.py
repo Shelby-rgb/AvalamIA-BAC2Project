@@ -25,7 +25,7 @@ state = {
 }
 
 
-msg_list = ["Ave, Caesar, morituri te salutant", "La Vulcania est toujours la", "Tu peux envoyer ce message 1 fois mais pas 15", "Tu peux envoyer ce message 2 fois mais pas 15", "Tu peux envoyer ce message 3 fois mais pas 15", "Tu peux envoyer ce message 4 fois mais pas 15", "Tu peux envoyer ce message 5 fois mais pas 15", "Tu peux envoyer ce message 6 fois mais pas 15", "Tu peux envoyer ce message 7 fois mais pas 15", "Tu peux envoyer ce message 8 fois mais pas 15", "Tu peux envoyer ce message 9 fois mais pas 15", "Tu peux envoyer ce message 10 fois mais pas 15", "Tu peux envoyer ce message 11 fois mais pas 15", "Tu peux envoyer ce message 12 fois mais pas 15", "Tu peux envoyer ce message 13 fois mais pas 15", "Tu peux envoyer ce message 14 fois mais pas 15", "Tu peux envoyer ce message 15 fois mais pas ... ah, bah si tu peux!"]#, "Gaudeo quod non pecaui et illum pocolum merui", "Paenitet me pecasse siue pecauisse"]
+msg_list = ["Ave, Caesar, morituri te salutant", "La Vulcania est toujours la", "Tu peux envoyer ce message 1 fois mais pas 15", "Tu peux envoyer ce message 2 fois mais pas 15", "Tu peux envoyer ce message 3 fois mais pas 15", "Tu peux envoyer ce message 4 fois mais pas 15", "Tu peux envoyer ce message 5 fois mais pas 15", "Tu peux envoyer ce message 6 fois mais pas 15", "Tu peux envoyer ce message 7 fois mais pas 15", "Tu peux envoyer ce message 8 fois mais pas 15", "Tu peux envoyer ce message 9 fois mais pas 15", "Tu peux envoyer ce message 10 fois mais pas 15", "Tu peux envoyer ce message 11 fois mais pas 15", "Tu peux envoyer ce message 12 fois mais pas 15", "Tu peux envoyer ce message 13 fois mais pas 15", "Tu peux envoyer ce message 14 fois mais pas 15", "Tu peux envoyer ce message 15 fois mais pas ... ah, bah si tu peux!", "Gaudeo quod non pecaui et illum pocolum merui"] #, "Paenitet me pecasse siue pecauisse"]
 
 
 """
@@ -335,13 +335,6 @@ class Avalam(TwoPlayersGame):
     #permet d'utiliser les tables de transposition, accélère l'ia
     def ttentry(self):
         return str(self.state)
-
-    def msg_index(self, n):
-        msg_index = n // 2
-        if msg_index > 16:
-            while msg_index > 16:
-                msg_index -= 16
-        return msg_index
             
 
 
@@ -375,10 +368,8 @@ def AI_runner(state=state, depth=1):
     board = state['game']
     nmove = len(state['moves'])
     
-  
     if nmove > 30:
         depth += 1
-
     #si des coups ont déjà été joués, on devrait avoir enregistré les tables au tour précédent
     if nmove != 0 and nmove != 1:
         with open('saved_TT.txt') as f:
@@ -406,15 +397,13 @@ def AI_runner(state=state, depth=1):
     #enregistre la TT, sera utilisée uniquement pour la partie en cours
     with open('saved_TT.txt', 'w') as f:
         json.dump(table.d, f)
-
-    msg_index = game.msg_index(nmove)
-    dic_move_form = {
-        "move": {
-            "from": move[0],
-            "to": move[1]
-        },
-        "message": msg_list[msg_index]
-    }
+    
+    msg_index = nmove // 2
+    if msg_index > 17:
+        while msg_index > 17:
+            msg_index -= 18
+    
+    dic_move_form = {"move": {"from": move[0], "to": move[1]}, "message": msg_list[msg_index]}
 
     return dic_move_form
 
@@ -438,7 +427,7 @@ def Random_runner(state=state, depth=2):
 
 if __name__ == '__main__':  
     t = time.time()
-    human_vs_ai(depth= 2, human_color=0)
+    random_vs_ai(depth= 2, random_color=0)
     print(f"L'exécution a duré {time.time()-t} secondes")
 
 
