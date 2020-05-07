@@ -1,0 +1,1 @@
+py Inscription_random.py
