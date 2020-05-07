@@ -36,10 +36,10 @@ Pour voir jouer l'ia contre random, appeler la fonction random_vs_ai(random_colo
 Pour obtenir de l'ia un seul coup sans jouer toute la partie, appeler la fonction AI_runner(state=body). (body étant l'état du jeu reçu part le serveur).
 
 Lorsqu'on joue human_vs_ai():
-'Player 1' a les pions '0' et 'Player 2' a les pions '1'    
-Les tours sont représentées par un tuple de forme (pion dominant la tour, nombre de pions dans la tour)
+'Player 1' a les pions '0' et 'Player 2' a les pions '1'.    
+Les tours sont représentées par un tuple de forme (pion dominant la tour, nombre de pions dans la tour).
 Quand c'est au tour de Human_Player de jouer, le joueur peut rentrer dans la ligne de commande:
-    - le mouvement à jouer, sous forme de 4 numéros 'ab cd' avec a=ligne 'from', b=colonne 'from', c=ligne 'to', d=colonne 'to'
-    - 'show moves' pour montrer tous les coups possibles
-    - 'move #nbr' pour jouer le coups numéro 'nbr' proposés par 'show moves'
-    - 'quit' pour interrompre le jeu
+    - le mouvement à jouer, sous forme de 4 numéros 'ab cd' avec a=ligne 'from', b=colonne 'from', c=ligne 'to', d=colonne 'to';
+    - 'show moves' pour montrer tous les coups possibles;
+    - 'move #nbr' pour jouer le coups numéro 'nbr' proposés par 'show moves';
+    - 'quit' pour interrompre le jeu.
