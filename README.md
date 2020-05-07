@@ -7,7 +7,7 @@ L'IA est basée sur le framework easyAI, voir:
 https://github.com/Zulko/easyAI/blob/master/README.rst
 
 !!!attention!!!
- Certains codes d'easyAI ont été modifiés pour mieux correspondre aux critères d'évaluation. Avalam_project importe ces fonctions réécrites uploadées sur github (au lieu de les importer d'easyAI). Il faut donc télécharger tous les fichiers du projet!!
+ Certains codes d'easyAI ont été modifiés pour mieux correspondre aux critères d'évaluation. Avalam_project importe ces fonctions réécrites (au lieu de les importer d'easyAI). Il faut donc télécharger tous les fichiers du projet!!
 
 L'IA utilise Negamax, une variante de l'algorithme Minimax avec élagage 'alpha/beta' afin d'optimiser la recherche.
 https://en.wikipedia.org/wiki/Negamax
