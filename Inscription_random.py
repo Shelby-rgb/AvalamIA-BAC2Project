@@ -6,11 +6,11 @@ port = 3001
 s = socket.socket()
 s.connect((socket.gethostname(), port))
 
-matricules = ["18040", "17051"]
-name = "Vulcania / OPV"
+matricules = ["19190", "20200"]
+name = "Ave Cesar"
 
 msg = {"matricules": matricules,
-       "port": 4200,
+       "port": 3040,
        "name": name}
 
 def sendJSON(socket, data):
@@ -33,5 +33,6 @@ def recvJSON(socket):
 
 sendJSON(s, msg)
 print(recvJSON(s))
+
 
 time.sleep(30)

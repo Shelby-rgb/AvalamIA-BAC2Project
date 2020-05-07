@@ -15,7 +15,7 @@ class Server:
             return ''
         
         body = cherrypy.request.json
-        print(body)
+        #print(body)
         rep_move = AI_runner(state=body, depth=2)
         print(rep_move)
         return rep_move

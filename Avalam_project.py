@@ -25,7 +25,7 @@ state = {
 }
 
 
-msg_list = ["Ave, Caesar, morituri te salutant", "La Vulcania est toujours la", "Tu peux envoyer ce message 1 fois mais pas 15", "Tu peux envoyer ce message 2 fois mais pas 15", "Tu peux envoyer ce message 3 fois mais pas 15", "Tu peux envoyer ce message 4 fois mais pas 15", "Tu peux envoyer ce message 5 fois mais pas 15", "Tu peux envoyer ce message 6 fois mais pas 15", "Tu peux envoyer ce message 7 fois mais pas 15", "Tu peux envoyer ce message 8 fois mais pas 15", "Tu peux envoyer ce message 9 fois mais pas 15", "Tu peux envoyer ce message 10 fois mais pas 15", "Tu peux envoyer ce message 11 fois mais pas 15", "Tu peux envoyer ce message 12 fois mais pas 15", "Tu peux envoyer ce message 13 fois mais pas 15", "Tu peux envoyer ce message 14 fois mais pas 15", "Tu peux envoyer ce message 15 fois mais pas ... ah, bah si tu peux!"]
+msg_list = ["Ave, Caesar, morituri te salutant", "La Vulcania est toujours la", "Tu peux envoyer ce message 1 fois mais pas 15", "Tu peux envoyer ce message 2 fois mais pas 15", "Tu peux envoyer ce message 3 fois mais pas 15", "Tu peux envoyer ce message 4 fois mais pas 15", "Tu peux envoyer ce message 5 fois mais pas 15", "Tu peux envoyer ce message 6 fois mais pas 15", "Tu peux envoyer ce message 7 fois mais pas 15", "Tu peux envoyer ce message 8 fois mais pas 15", "Tu peux envoyer ce message 9 fois mais pas 15", "Tu peux envoyer ce message 10 fois mais pas 15", "Tu peux envoyer ce message 11 fois mais pas 15", "Tu peux envoyer ce message 12 fois mais pas 15", "Tu peux envoyer ce message 13 fois mais pas 15", "Tu peux envoyer ce message 14 fois mais pas 15", "Tu peux envoyer ce message 15 fois mais pas ... ah, bah si tu peux!", "Gaudeo quod non pecaui et illum pocolum merui", "Paenitet me pecasse siue pecauisse"]
 
 
 """
@@ -250,11 +250,12 @@ class Avalam(TwoPlayersGame):
     
     #return True si le joueur en cour (nplayer) a perdu
     def lose(self):
-        if self.scoring() > 0:
-            return False
-        else:
-            return True
-    
+        if self.is_over() == True:
+            if self.scoring() > 0:
+                return False
+            else:
+                return True
+
     #print le plateau sur terminal, les tours sont représentées par un tuple de forme (pion dominant la tour, nbr de pions dans la tour)
     def show(self):
         arena = self.state
@@ -320,6 +321,21 @@ class Avalam(TwoPlayersGame):
     def ttentry(self):
         return str(self.state)
 
+    def msg_index(self, n):
+        if self.lose() == False:
+            msg_index = 17
+            return msg_index
+        if self.lose() == True:
+            msg_index = 18
+            return msg_index
+        msg_index = n // 2
+        if msg_index > 16:
+            while msg_index > 16:
+                msg_index -= 16
+        return msg_index
+            
+
+
 #joue toute une partie random vs ia, plateau dans le terminal
 def random_vs_ai(depth=2, random_color=1):
     board = state['game']
@@ -354,13 +370,6 @@ def AI_runner(state=state, depth=2):
         depth += 1
     if nmove > 30:
         depth += 1
-    """
-    #l'ia est plus lente entre les coups 12 et 25
-    if 12<nmove<25:
-        depth = 1
-    if 33<nmove:
-        depth = 3
-        """
 
     #si des coups ont déjà été joués, on devrait avoir enregistré les tables au tour précédent
     if nmove != 0 and nmove != 1:
@@ -385,9 +394,12 @@ def AI_runner(state=state, depth=2):
 
     game = Avalam(players, board, first_color=your_color, nmove=nmove)
     move = game.get_move()
-    msg_index = nmove //2
-    while msg_index > 16:
-        msg_index -= 16
+
+    #enregistre la TT, sera utilisée uniquement pour la partie en cours
+    with open('saved_TT.txt', 'w') as f:
+        json.dump(table.d, f)
+
+    msg_index = game.msg_index(nmove)
     dic_move_form = {
         "move": {
             "from": move[0],
@@ -396,15 +408,9 @@ def AI_runner(state=state, depth=2):
         "message": msg_list[msg_index]
     }
 
-    
-    
-    #enregistre la TT, sera utilisée uniquement pour la partie en cours
-    with open('saved_TT.txt', 'w') as f:
-        json.dump(table.d, f)
-
-    
     return dic_move_form
 
+#Renvoie un coup random suivant le plateau reçu
 def Random_runner(state=state, depth=2):
     board = state['game']
     players = [Random_Player(color=0), Random_Player(color=1)]
