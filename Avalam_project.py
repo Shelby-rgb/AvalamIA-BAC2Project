@@ -25,7 +25,7 @@ state = {
 }
 
 
-msg_list = ["Ave, Caesar, morituri te salutant", "La Vulcania est toujours la", "Tu peux envoyer ce message 1 fois mais pas 15", "Tu peux envoyer ce message 2 fois mais pas 15", "Tu peux envoyer ce message 3 fois mais pas 15", "Tu peux envoyer ce message 4 fois mais pas 15", "Tu peux envoyer ce message 5 fois mais pas 15", "Tu peux envoyer ce message 6 fois mais pas 15", "Tu peux envoyer ce message 7 fois mais pas 15", "Tu peux envoyer ce message 8 fois mais pas 15", "Tu peux envoyer ce message 9 fois mais pas 15", "Tu peux envoyer ce message 10 fois mais pas 15", "Tu peux envoyer ce message 11 fois mais pas 15", "Tu peux envoyer ce message 12 fois mais pas 15", "Tu peux envoyer ce message 13 fois mais pas 15", "Tu peux envoyer ce message 14 fois mais pas 15", "Tu peux envoyer ce message 15 fois mais pas ... ah, bah si tu peux!", "Gaudeo quod non pecaui et illum pocolum merui", "Paenitet me pecasse siue pecauisse"]
+msg_list = ["Ave, Caesar, morituri te salutant", "La Vulcania est toujours la", "Tu peux envoyer ce message 1 fois mais pas 15", "Tu peux envoyer ce message 2 fois mais pas 15", "Tu peux envoyer ce message 3 fois mais pas 15", "Tu peux envoyer ce message 4 fois mais pas 15", "Tu peux envoyer ce message 5 fois mais pas 15", "Tu peux envoyer ce message 6 fois mais pas 15", "Tu peux envoyer ce message 7 fois mais pas 15", "Tu peux envoyer ce message 8 fois mais pas 15", "Tu peux envoyer ce message 9 fois mais pas 15", "Tu peux envoyer ce message 10 fois mais pas 15", "Tu peux envoyer ce message 11 fois mais pas 15", "Tu peux envoyer ce message 12 fois mais pas 15", "Tu peux envoyer ce message 13 fois mais pas 15", "Tu peux envoyer ce message 14 fois mais pas 15", "Tu peux envoyer ce message 15 fois mais pas ... ah, bah si tu peux!"]#, "Gaudeo quod non pecaui et illum pocolum merui", "Paenitet me pecasse siue pecauisse"]
 
 
 """
@@ -337,12 +337,6 @@ class Avalam(TwoPlayersGame):
         return str(self.state)
 
     def msg_index(self, n):
-        if self.lose() == False:
-            msg_index = 17
-            return msg_index
-        if self.lose() == True:
-            msg_index = 18
-            return msg_index
         msg_index = n // 2
         if msg_index > 16:
             while msg_index > 16:
