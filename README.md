@@ -11,14 +11,13 @@ https://github.com/Zulko/easyAI/blob/master/README.rst
 
 L'IA utilise Negamax, une variante de l'algorithme Minimax avec élagage 'alpha/beta' afin d'optimiser la recherche.
 https://en.wikipedia.org/wiki/Negamax
-
-
-
-Pour évaluer l'état du jeu, Negamax utilise La fonction Avalam.scoring(). Celle-ci calcule dans un premier temps le nombre de tours que possède chaque équipe (le score direct). 
-Ensuite, elle cherche si cette tour pourrait encore se déplacer ou être prise par l'adversaire. Si non, c'est qu'elle est 'figée'. Elle ne bougera plus de la partie, donc le point qu'elle rapporte peut être considéré comme acquis. Ces tours valorisent le score du joueur qui la possède. Cette façon d'évaluer le score vise à compenser le fait que Negamax n'a pas le temps de calculer très profondément. 
-Un temps limite (break_time) a été ajouté a Negamax pour limiter le temps de réflexion à (un peu) moins de 10 secondes.  
+Ce code génère tous les états qu'il est possible d'atteindre en x coups et attribue à chacun d'entre eux une valeur avec la fonction d'évaluation Avalam.scoring().
+Celle-ci calcule dans un premier temps le nombre de tours que possède chaque équipe (le score direct). 
+Ensuite, elle cherche si cette tour pourrait encore se déplacer ou être prise par l'adversaire. Si non, c'est qu'elle est 'figée'. Elle ne bougera plus de la partie, donc le point qu'elle rapporte peut être considéré comme acquis. Ces tours valorisent le score du joueur qui la possède. Cette façon d'évaluer le score vise à compenser le fait que Negamax n'a pas le temps de calculer très profondément.
+Negamax cherche ensuite quel coup amènera son joueur à obtenir le meilleur score en supposant que l'adversaire jouera également le mieux possible.
+L'élagage alpha/beta fait gagner du temps à l'algorithme en l'empêchant d'explorer des situations moins bonne que la meilleure déjà trouvée.
 De plus, Negamax attribue plus de valeur à un même état de jeu s'il est atteint plus rapidement (par exemple atteindre un score de 7 en 3 coups vaut mieux qu'en 5 coups).
-
+Un temps limite (break_time) a été ajouté à Negamax pour limiter le temps de réflexion à (un peu) moins de 10 secondes.  
 
 Pour jouer contre l'ia dans le terminal, appeler la fonction human_vs_ai(human_color=1).
 Pour voir jouer l'ia contre random, appeler la fonction random_vs_ai(random_color=1).
