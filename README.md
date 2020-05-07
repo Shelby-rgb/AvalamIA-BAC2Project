@@ -1,3 +1,18 @@
+# Realisateurs 
+Robin Lamotte 17051 - Damien Ryckaert 18040
+
+# Modules utilisés 
+json
+socket
+sys
+cherrypy
+random
+time
+copy
+pickle
+ast
+re
+
 # AVALAM-PROJECT
 Project Avalam
 Règles du jeu:
