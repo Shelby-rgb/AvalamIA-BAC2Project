@@ -191,69 +191,72 @@ class Avalam(TwoPlayersGame):
             while line<9:
                 while row<9:
                     frozen = 0
-                    if len(state[line][row]) != 0:
+                    if len(state[line][row]) == 5:
+                        frozen += 8
+                    else:
+                        if len(state[line][row]) != 0:
 
-                        if line != 0 and row != 0:
-                            if len(state[line][row])+len(state[line-1][row-1]) >=5:
-                                if len(state[line-1][row-1]) != 0:
-                                    frozen += 1
-                        else:
-                            frozen += 1
+                            if line != 0 and row != 0:
+                                if len(state[line][row])+len(state[line-1][row-1]) >=5:
+                                    if len(state[line-1][row-1]) != 0:
+                                        frozen += 1
+                            else:
+                                frozen += 1
+                                
+                            if line != 0:
+                                if len(state[line][row])+len(state[line-1][row]) >=5:
+                                    if len(state[line-1][row]) != 0:
+                                        frozen += 1
+                            else:
+                                frozen += 1
                             
-                        if line != 0:
-                            if len(state[line][row])+len(state[line-1][row]) >=5:
-                                if len(state[line-1][row]) != 0:
-                                    frozen += 1
-                        else:
-                            frozen += 1
-                        
-                        if line != 0 and row != 8:
-                            if len(state[line][row])+len(state[line-1][row+1]) >=5:
-                                if len(state[line-1][row+1]) != 0:
-                                    frozen += 1
-                        else:
-                            frozen += 1
+                            if line != 0 and row != 8:
+                                if len(state[line][row])+len(state[line-1][row+1]) >=5:
+                                    if len(state[line-1][row+1]) != 0:
+                                        frozen += 1
+                            else:
+                                frozen += 1
+                                
+                            if row != 0:
+                                if len(state[line][row])+len(state[line][row-1]) >=5:
+                                    if len(state[line][row-1]) != 0:
+                                        frozen += 1
+                            else:
+                                frozen += 1
                             
-                        if row != 0:
-                            if len(state[line][row])+len(state[line][row-1]) >=5:
-                                if len(state[line][row-1]) != 0:
-                                    frozen += 1
-                        else:
-                            frozen += 1
-                        
-                        if row != 8:
-                            if len(state[line][row])+len(state[line][row+1]) >=5:
-                                if len(state[line][row+1]) != 0:
-                                    frozen += 1
-                        else:
-                            frozen += 1
-                        
-                        if line != 8 and row != 0:
-                            if len(state[line][row])+len(state[line+1][row-1]) >=5:
-                                if len(state[line+1][row-1]) != 0:
-                                    frozen += 1
-                        else:
-                            frozen += 1
+                            if row != 8:
+                                if len(state[line][row])+len(state[line][row+1]) >=5:
+                                    if len(state[line][row+1]) != 0:
+                                        frozen += 1
+                            else:
+                                frozen += 1
                             
-                        if line != 8:
-                            if len(state[line][row])+len(state[line+1][row]) >=5:
-                                if len(state[line+1][row]) != 0:
-                                    frozen += 1
-                        else:
-                            frozen += 1
-                            
-                        if line != 8 and row != 8:
-                            if len(state[line][row])+len(state[line+1][row+1]) >=5:
-                                if len(state[line+1][row+1]) != 0:
-                                    frozen += 1
-                        else:
-                            frozen += 1
+                            if line != 8 and row != 0:
+                                if len(state[line][row])+len(state[line+1][row-1]) >=5:
+                                    if len(state[line+1][row-1]) != 0:
+                                        frozen += 1
+                            else:
+                                frozen += 1
+                                
+                            if line != 8:
+                                if len(state[line][row])+len(state[line+1][row]) >=5:
+                                    if len(state[line+1][row]) != 0:
+                                        frozen += 1
+                            else:
+                                frozen += 1
+                                
+                            if line != 8 and row != 8:
+                                if len(state[line][row])+len(state[line+1][row+1]) >=5:
+                                    if len(state[line+1][row+1]) != 0:
+                                        frozen += 1
+                            else:
+                                frozen += 1
                     
                     if frozen == 8:
                         if state[line][row][-1] == current_player:
-                            player_freeze += 0.9
+                            player_freeze += 0.6
                         else:
-                            opponent_freeze += 0.9
+                            opponent_freeze += 0.6
                    
                     row+=1
                 line+=1
