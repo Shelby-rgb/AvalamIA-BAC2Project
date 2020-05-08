@@ -1,12 +1,11 @@
 
-=======
-# Realisateurs 
+# Réalisateurs 
 Robin Lamotte 17051 - Damien Ryckaert 18040
 
 # Modules utilisés 
 json, socket, sys, cherrypy, random, time, copy, pickle, ast, re
 
->>>>>>> fb9fc76f6a9b34e5770e8527bc495f1a11971209
+
 # AVALAM-PROJECT
 Project Avalam
 Règles du jeu:
@@ -47,5 +46,5 @@ Quand c'est au tour de Human_Player de jouer, le joueur peut rentrer dans la lig
     - 'show moves' pour montrer tous les coups possibles
     - 'move #nbr' pour jouer le coups numéro 'nbr' proposés par 'show moves'
     - 'quit' pour interrompre le jeu
->>>>>>> b913fd3707f07a48eb8b6196064d5ea0624b6bcd
+
 
