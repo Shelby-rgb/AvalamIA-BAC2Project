@@ -25,7 +25,7 @@ Ensuite, elle cherche si cette tour pourrait encore se déplacer ou être prise 
 Negamax cherche ensuite quel coup amènera son joueur à obtenir le meilleur score en supposant que l'adversaire jouera également le mieux possible.
 L'élagage alpha/beta fait gagner du temps à l'algorithme en l'empêchant d'explorer des situations moins bonne que la meilleure déjà trouvée.
 De plus, Negamax attribue plus de valeur à un même état de jeu s'il est atteint plus rapidement (par exemple atteindre un score de 7 en 3 coups vaut mieux qu'en 5 coups).
-Un temps limite (break_time) a été ajouté à Negamax pour limiter le temps de réflexion à (un peu) moins de 10 secondes.  
+L'algorithme devient trop lent en début de partie (moment où le plus de coups sont possibles), il commence donc avec une profondeur de 2, et l'augmente en fin de partie. Un temps limite (break_time) à été ajouté à Negamax pour limiter le temps de réflexion à (un peu) moins de 10 secondes au cas où celui-ci dépasserait la limite imposée.   
 
 
 inscription: inscription.py
