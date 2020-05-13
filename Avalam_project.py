@@ -284,32 +284,50 @@ class Avalam(TwoPlayersGame):
                 return True
 
     #print le plateau sur terminal, les tours sont représentées par un tuple de forme (pion dominant la tour, nbr de pions dans la tour)
+    #print le plateau sur terminal, les tours sont représentées par un tuple de forme (pion dominant la tour, nbr de pions dans la tour)
     def show(self):
         arena = self.state
         print('\n')
         print('      ', 0, '      ', 1, '      ', 2, '      ', 3, '      ', 4, '      ', 5, '      ', 6, '      ', 7, '      ', 8, '      ') 
         print('__ |________|_______ |________|________|________|________|________|________|________|')
         y = 0
-        a = b = c = d = e = f = g = h = i = '      '
         for line in arena:
             if len(line[0]) > 0:
                 a = line[0][-1], len(line[0])
+            else:
+                a = '      '
             if len(line[1]) > 0:
                 b = line[1][-1], len(line[1])
+            else:
+                b = '      '
             if len(line[2]) > 0:
                 c = line[2][-1], len(line[2])
+            else:
+                c = '      '
             if len(line[3]) > 0:
                 d = line[3][-1], len(line[3])
+            else:
+                d = '      '
             if len(line[4]) > 0:
                 e = line[4][-1], len(line[4])
+            else:
+                e = '      '
             if len(line[5]) > 0:
                 f = line[5][-1], len(line[5])
+            else:
+                f = '      '
             if len(line[6]) > 0:
                 g = line[6][-1], len(line[6])
+            else:
+                g = '      '
             if len(line[7]) > 0:
                 h = line[7][-1], len(line[7])
+            else:
+                h = '      '
             if len(line[8]) > 0:
                 i = line[8][-1], len(line[8])
+            else:
+                i = '      '
             print(y, ' |', a, '|', b, '|', c, '|', d, '|', e, '|', f, '|', g, '|', h, '|', i, '|')
             if line == arena[8]: #state['game'][8]:
                 print('__  ________________________________________________________________________________')
